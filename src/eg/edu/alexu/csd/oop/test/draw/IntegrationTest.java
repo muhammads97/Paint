@@ -33,6 +33,7 @@ public class IntegrationTest {
     @org.junit.Test
     public void testGraphics() {
         DrawingEngine instance = (DrawingEngine)TestRunner.getImplementationInstanceForInterface(DrawingEngine.class);
+        
         try {
             DummyShape shape = new DummyShape();
             shape.setColor(Color.RED);
@@ -50,6 +51,7 @@ public class IntegrationTest {
     @org.junit.Test
     public void testCreateShapes(){
         DrawingEngine instance = (DrawingEngine)TestRunner.getImplementationInstanceForInterface(DrawingEngine.class);
+        instance.installPluginShape("RoundRectangle.jar");
         List<Class<? extends Shape>> supportedShapes = instance.getSupportedShapes();
         assertNotNull("No supported shapes returned, check getSupportedShapes function!", supportedShapes);
         assertFalse("No supported shapes returned, check getSupportedShapes function!", supportedShapes.isEmpty());

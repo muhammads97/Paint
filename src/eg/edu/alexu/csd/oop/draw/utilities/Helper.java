@@ -4,11 +4,16 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Modifier;
 import java.net.URL;
+import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
 
-public class ReflectionHelper {
+import eg.edu.alexu.csd.oop.draw.Shape;
+
+public class Helper {
 
     public static List<Class<?>> findClassesImpmenenting(final Class<?> interfaceClass, final Package fromPackage) {
 
@@ -98,6 +103,7 @@ public class ReflectionHelper {
         for (File file : files) {
             if (file.isDirectory()) {
                 assert !file.getName().contains(".");
+                
                 classes.addAll(findClasses(file, packageName + "." + file.getName()));
             }
             else if (file.getName().endsWith(".class")) {
@@ -109,21 +115,52 @@ public class ReflectionHelper {
     
     private static List<Class<?>> filterConcerteClasses(List<Class<?>> classes){
     	
-    	List<Class<?>> filteredClasses = null ;
+    	List<Class<?>> filteredClasses = new ArrayList<Class<?>>();
     	
     	for (Class<?> fetchedClass : classes){
     		Integer modifiers = fetchedClass.getModifiers();
     		
     		if (!Modifier.isInterface(modifiers) && !Modifier.isAbstract(modifiers) && Modifier.isPublic(modifiers)){
-    			if ( filteredClasses == null ){
-    				filteredClasses = new ArrayList<Class<?>>();
-    			}
-    			
     			filteredClasses.add(fetchedClass);
     		}
     	}
     
     	return filteredClasses;
+    }
+    
+    public static void loadShapesFromJar(String JarPath, List<Class<? extends Shape>> supported) {
+        JarFile jarFile = null;
+        try {
+            jarFile = new JarFile(JarPath);
+            Enumeration<JarEntry> e = jarFile.entries();
+
+            URL[] urls = { new URL("jar:file:" + JarPath+"!/") };
+            URLClassLoader cl = URLClassLoader.newInstance(urls);
+
+            while (e.hasMoreElements()) {
+                JarEntry je = e.nextElement();
+                if(je.isDirectory() || !je.getName().endsWith(".class")){
+                    continue;
+                }
+                String className = je.getName().substring(0,je.getName().length()-6);
+                className = className.replace('/', '.');
+                Class c = cl.loadClass(className);
+                if(Shape.class.isAssignableFrom(c)) {
+                    supported.add(c);
+                }
+            }
+
+        } catch(Exception e) {
+            e.printStackTrace();
+        } finally {
+            if(jarFile != null) {
+                try {
+                    jarFile.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
     
 }
