@@ -14,7 +14,9 @@ import eg.edu.alexu.csd.oop.draw.cs41.command.UpdateShapeCommand;
 import eg.edu.alexu.csd.oop.draw.cs41.utilities.CircularStack;
 import eg.edu.alexu.csd.oop.draw.cs41.utilities.Helper;
 import eg.edu.alexu.csd.oop.draw.cs41.utilities.XMLHandler;
+import eg.edu.alexu.csd.oop.draw.cs41.utilities.json.JSONHandler;
 import eg.edu.alexu.csd.oop.test.DummyShape;
+import javafx.print.JobSettings;
 
 public class Engine implements DrawingEngine {
     private List<Shape> shapes;
@@ -89,16 +91,32 @@ public class Engine implements DrawingEngine {
 
     @Override
     public void save(String path) {
-        XMLHandler xml = new XMLHandler(path, supportedShapes);
-        xml.setShapes(shapes);
-        xml.saveShapes();
+        path = path.toLowerCase();
+        if(path.endsWith(".xml")) {
+            XMLHandler xml = new XMLHandler(path, supportedShapes);
+            xml.setShapes(shapes);
+            xml.saveShapes();
+        } else if (path.endsWith(".json")) {
+            JSONHandler json = new JSONHandler(path, supportedShapes);
+            json.setShapes(shapes);
+            json.saveShapes();
+        }
+        
     }
 
     @Override
     public void load(String path) {
-        XMLHandler xml = new XMLHandler(path, supportedShapes);
-        xml.loadShapes();
-        shapes = xml.getShapes();
+        path = path.toLowerCase();
+        if(path.endsWith(".xml")) {
+            XMLHandler xml = new XMLHandler(path, supportedShapes);
+            xml.loadShapes();
+            shapes = xml.getShapes();
+        } else if (path.endsWith(".json")) {
+            JSONHandler json = new JSONHandler(path, supportedShapes);
+            json.loadShapes();
+            shapes = json.getShapes();
+        }
+        
     }
     @Override
     public void installPluginShape(String jarPath) {

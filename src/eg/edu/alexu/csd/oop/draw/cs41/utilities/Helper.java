@@ -1,6 +1,11 @@
 package eg.edu.alexu.csd.oop.draw.cs41.utilities;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Modifier;
 import java.net.URL;
@@ -12,11 +17,11 @@ import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
 import eg.edu.alexu.csd.oop.draw.Shape;
+import netscape.javascript.JSObject;
 
 public class Helper {
 
     public static List<Class<?>> findClassesImpmenenting(final Class<?> interfaceClass, final Package fromPackage) {
-
         if (interfaceClass == null) {
             System.out.println("Unknown subclass.");
             return null;
@@ -174,5 +179,54 @@ public class Helper {
             }
         }
         return jars;
+    }
+    
+    public static void writeFile(File file, String s) {
+        BufferedWriter writer = null;
+        try {
+            writer = new BufferedWriter(new FileWriter(file));
+            writer.write(s);
+
+        } catch (IOException e){
+            e.printStackTrace();
+        } finally {
+            try {
+                if (writer != null) writer.close( );
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    
+    public static String readFile(File file) {
+        StringBuilder text = new StringBuilder();
+        FileReader in = null;
+        BufferedReader br = null;
+        try {
+            in = new FileReader(file);
+            br = new BufferedReader(in);
+            String s;
+            while((s = br.readLine()) != null) {
+                text.append(s);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if(in != null) {
+                try {
+                    in.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if(br != null) {
+                try {
+                    br.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return text.toString();
     }
 }
