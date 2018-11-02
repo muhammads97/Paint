@@ -1,6 +1,7 @@
 package eg.edu.alexu.csd.oop.draw.cs41;
 
 import java.awt.Graphics;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,8 +11,10 @@ import eg.edu.alexu.csd.oop.draw.cs41.command.AddShapeCommand;
 import eg.edu.alexu.csd.oop.draw.cs41.command.Command;
 import eg.edu.alexu.csd.oop.draw.cs41.command.RemoveShapeCommand;
 import eg.edu.alexu.csd.oop.draw.cs41.command.UpdateShapeCommand;
-import eg.edu.alexu.csd.oop.draw.utilities.CircularStack;
-import eg.edu.alexu.csd.oop.draw.utilities.Helper;
+import eg.edu.alexu.csd.oop.draw.cs41.utilities.CircularStack;
+import eg.edu.alexu.csd.oop.draw.cs41.utilities.Helper;
+import eg.edu.alexu.csd.oop.draw.cs41.utilities.XMLHandler;
+import eg.edu.alexu.csd.oop.test.DummyShape;
 
 public class Engine implements DrawingEngine {
     private List<Shape> shapes;
@@ -24,6 +27,7 @@ public class Engine implements DrawingEngine {
         undoStack = new CircularStack(20);
         redoStack = new CircularStack(20);
         fetchSupported();
+        installAvailableJars();
     }
     @Override
     public void refresh(Graphics canvas) {
@@ -85,14 +89,16 @@ public class Engine implements DrawingEngine {
 
     @Override
     public void save(String path) {
-        // TODO Auto-generated method stub
-
+        XMLHandler xml = new XMLHandler(path, supportedShapes);
+        xml.setShapes(shapes);
+        xml.saveShapes();
     }
 
     @Override
     public void load(String path) {
-        // TODO Auto-generated method stub
-
+        XMLHandler xml = new XMLHandler(path, supportedShapes);
+        xml.loadShapes();
+        shapes = xml.getShapes();
     }
     @Override
     public void installPluginShape(String jarPath) {
@@ -106,6 +112,13 @@ public class Engine implements DrawingEngine {
         for(Class<?> c : l) {
             supportedShapes.add((Class<? extends Shape>)c);
         }
+        supportedShapes.add(DummyShape.class);
     }
-
+    
+    private void installAvailableJars() {
+        List<File> jars = Helper.getJars("./");
+        for(File f : jars) {
+            installPluginShape(f.getPath());
+        }
+    }
 }

@@ -1,4 +1,4 @@
-package eg.edu.alexu.csd.oop.draw.utilities;
+package eg.edu.alexu.csd.oop.draw.cs41.utilities;
 
 import java.io.File;
 import java.io.IOException;
@@ -162,5 +162,17 @@ public class Helper {
             }
         }
     }
-    
+    public static List<File> getJars(String dir){
+        File folder = new File(dir);
+        File[] files = folder.listFiles();
+        List<File> jars = new ArrayList<File>();
+        for(File f : files) {
+            if(f.isFile()) {
+                if(f.getName().endsWith(".jar")) {
+                    jars.add(f);
+                }
+            }
+        }
+        return jars;
+    }
 }
