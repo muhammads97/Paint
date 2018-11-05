@@ -1,5 +1,6 @@
 package eg.edu.alexu.csd.oop.draw.cs41.utilities;
 
+import java.awt.Point;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -228,5 +229,50 @@ public class Helper {
             }
         }
         return text.toString();
+    }
+    
+    public static Shape search(Shape[] shapes, Point click) {
+        for(Shape shape : shapes) {
+            int x1 = shape.getPosition().x;
+            int y1 = shape.getPosition().y;
+            int x2;
+            int y2;
+            
+            try {
+                x2 = shape.getProperties().get("x").intValue();
+                y2 = shape.getProperties().get("y").intValue();
+            } catch (Exception e) {
+                    x2 = shape.getProperties().get("Width").intValue();
+                    x2 += x1;
+                    y2 = shape.getProperties().get("Length").intValue();
+                    y2 += y1;
+            } 
+            int x3 = Math.max(x2, x1);
+            x1 = Math.min(x2, x1);
+            int y3 = Math.max(y2, y1);
+            y1 = Math.min(y2, y1);
+            
+                    
+            
+            if(click.x <= x3 && click.x >= x1) {
+                if(click.y <= y3 && click.y >= y1) {
+                    return shape;
+                }
+            }
+        }
+        
+        return null;
+    }
+    public static Point getPoint(Point p1, int len, Double o) {
+        Double x = p1.x + len * Math.cos(o);
+        Double y = p1.y + len * Math.sin(o);
+        
+        return new Point(x.intValue(), y.intValue());
+    }
+
+    public static Double getOrientation(Double o, int a, int b, int c) {
+        Double d = Double.valueOf(b * b + c * c - a * a)/(2 * b * c);
+        Double v = Math.acos(d) + o;
+        return v;
     }
 }

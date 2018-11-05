@@ -15,20 +15,25 @@ public class UpdateShapeCommand extends Command {
 
     @Override
     public void execute() {
-        this.shapes.remove(oldShape);
-        this.shapes.add(newShape);
+        if(this.shapes.remove(oldShape)) {
+            this.shapes.add(newShape);
+        }
+        
     }
 
     @Override
     public void undo() {
-        this.shapes.remove(newShape);
-        this.shapes.add(oldShape);
+        if(this.shapes.remove(newShape)) {
+            this.shapes.add(oldShape);
+        }
+        
     }
 
     @Override
     public void redo() {
-        this.shapes.remove(oldShape);
-        this.shapes.add(newShape);
+        if(this.shapes.remove(oldShape)) {
+            this.shapes.add(newShape);
+        }
     }
 
 }

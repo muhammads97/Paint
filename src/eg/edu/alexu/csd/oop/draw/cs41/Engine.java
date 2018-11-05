@@ -106,6 +106,7 @@ public class Engine implements DrawingEngine {
 
     @Override
     public void load(String path) {
+        shapes.clear();
         path = path.toLowerCase();
         if(path.endsWith(".xml")) {
             XMLHandler xml = new XMLHandler(path, supportedShapes);
@@ -116,7 +117,6 @@ public class Engine implements DrawingEngine {
             json.loadShapes();
             shapes = json.getShapes();
         }
-        
     }
     @Override
     public void installPluginShape(String jarPath) {
@@ -130,11 +130,10 @@ public class Engine implements DrawingEngine {
         for(Class<?> c : l) {
             supportedShapes.add((Class<? extends Shape>)c);
         }
-        supportedShapes.add(DummyShape.class);
     }
     
     private void installAvailableJars() {
-        List<File> jars = Helper.getJars("./");
+        List<File> jars = Helper.getJars("./external shapes/");
         for(File f : jars) {
             installPluginShape(f.getPath());
         }
