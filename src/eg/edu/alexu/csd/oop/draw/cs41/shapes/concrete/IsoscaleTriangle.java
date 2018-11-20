@@ -4,6 +4,10 @@ import java.awt.Graphics;
 
 import eg.edu.alexu.csd.oop.draw.cs41.shapes.DragableTriangle;
 
+/**
+ * @author Muhammad Salah
+ * 
+ */
 public class IsoscaleTriangle extends DragableTriangle {
     public IsoscaleTriangle() {
         super();
@@ -17,6 +21,7 @@ public class IsoscaleTriangle extends DragableTriangle {
     
     @Override
     public void draw(Graphics canvas) {
+        //setting the points arrays
         int x = position.x;
         int y = position.y;
         int h = properties.get("Length").intValue();

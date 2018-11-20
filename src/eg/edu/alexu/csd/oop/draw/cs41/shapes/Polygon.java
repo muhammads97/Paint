@@ -9,6 +9,10 @@ import java.awt.Point;
 import java.util.Arrays;
 import java.util.HashMap;
 
+/**
+ * @author Muhammad Salah
+ * abstract class implements the main functionality of a polygon shape
+ */
 public abstract class Polygon extends ShapeStructure{
     private int nPoints;
     protected int[] xPoints;
@@ -54,6 +58,9 @@ public abstract class Polygon extends ShapeStructure{
         g2d.drawPolygon(xPoints, yPoints, xPoints.length);
     }
     
+    /**
+     * used to fill the points arrays from the properties map
+     */
     private void fillArrays() {
         xPoints = new int[nPoints];
         yPoints = new int[nPoints];

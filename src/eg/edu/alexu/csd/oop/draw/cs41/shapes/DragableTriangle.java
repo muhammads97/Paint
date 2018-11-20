@@ -8,6 +8,11 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.util.HashMap;
 
+/**
+ * @author Muhammad Salah
+ * provides an implementation of the drawing function of a triangle
+ * the triangle can be drawn using drag
+ */
 public abstract class DragableTriangle extends ShapeStructure {
     protected int[] xP = {0,0,0};
     protected int[] yP = {0,0,0};

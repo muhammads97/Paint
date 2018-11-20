@@ -8,6 +8,10 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.util.HashMap;
 
+/**
+ * @author Muhammad Salah
+ * abstract class implements the main functionality of an oval shape
+ */
 public abstract class Oval extends ShapeStructure{
     public Oval(Oval o) {
         this.color = o.color;

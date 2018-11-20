@@ -1,10 +1,11 @@
 package eg.edu.alexu.csd.oop.draw.cs41.shapes.concrete;
 
-import java.awt.Point;
-import java.util.HashMap;
-
 import eg.edu.alexu.csd.oop.draw.cs41.shapes.Oval;
 
+/**
+ * @author Muhammad Salah
+ *
+ */
 public class Elipse extends Oval {
 
     public Elipse(Elipse o) {

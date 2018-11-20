@@ -4,6 +4,10 @@ import java.util.List;
 
 import eg.edu.alexu.csd.oop.draw.Shape;
 
+/**
+ * @author Muhammad Salah
+ * add shape to the canvas
+ */
 public class AddShapeCommand extends Command{
     private Shape shape;
     public AddShapeCommand(List<Shape> shapes, Shape shape) {

@@ -7,11 +7,14 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.util.HashMap;
-import java.util.Map;
 
 import eg.edu.alexu.csd.oop.draw.cs41.shapes.ShapeStructure;
 import eg.edu.alexu.csd.oop.draw.cs41.shapes.interfaces.FreeShape;
 
+/**
+ * @author Muhammad Salah
+ * the shape consists of a set of points
+ */
 public class HandDrawShape extends ShapeStructure implements FreeShape {
 
     public HandDrawShape(HandDrawShape handDrawShape) {
@@ -34,6 +37,7 @@ public class HandDrawShape extends ShapeStructure implements FreeShape {
     
     @Override
     public void draw(Graphics canvas) {
+        //a line is drawing between each two points
         Graphics2D g2d = (Graphics2D) canvas;
         float alpha = properties.get("Transperancy").floatValue();
         AlphaComposite alcom = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha);

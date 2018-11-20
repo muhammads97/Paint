@@ -10,6 +10,10 @@ import java.util.HashMap;
 
 import eg.edu.alexu.csd.oop.draw.cs41.shapes.ShapeStructure;
 
+/**
+ * @author Muhammad Salah
+ *
+ */
 public class Rectangle extends ShapeStructure {
 
     public Rectangle(Rectangle r) {

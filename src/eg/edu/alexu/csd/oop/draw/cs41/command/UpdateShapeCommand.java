@@ -4,6 +4,10 @@ import java.util.List;
 
 import eg.edu.alexu.csd.oop.draw.Shape;
 
+/**
+ * @author Muhammad Salah
+ * replace the old shape with updated one
+ */
 public class UpdateShapeCommand extends Command {
     private Shape oldShape;
     private Shape newShape;

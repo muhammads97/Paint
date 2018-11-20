@@ -26,15 +26,44 @@ import org.w3c.dom.NodeList;
 
 import eg.edu.alexu.csd.oop.draw.Shape;
 
+/**
+ * @author Muhammad Salah
+ * a class to handle xml files and operations
+ */
 public class XMLHandler {
+    /**
+     * xml file
+     */
     private File file;
+    /**
+     * document builder factory
+     */
     private DocumentBuilderFactory factory;
+    /**
+     * document builder
+     */
     private DocumentBuilder builder;
+    /**
+     * document object
+     */
     private Document doc;
+    /**
+     * the main element of the documents
+     */
     private Element dom;
+    /**
+     * list of shapes to read or write
+     */
     private List<Shape> shapes;
+    /**
+     * list of supported shapes' classes to load the shapes 
+     */
     private List<Class <? extends Shape>> supportedShapes;
     
+    /**
+     * @param path file path
+     * @param supportedShapes 
+     */
     public XMLHandler(String path, List<Class <? extends Shape>> supportedShapes) {
         this.supportedShapes = supportedShapes;
         this.file = new File(path);
@@ -59,10 +88,16 @@ public class XMLHandler {
         }
     }
     
+    /**
+     * @param shapes shapes to write
+     */
     public void setShapes(List<Shape> shapes) {
         this.shapes = shapes;
     }
     
+    /**
+     * save the shapes to the path
+     */
     public void saveShapes() {
         for(Shape shape : shapes) {
             Element s = doc.createElement("shape");
@@ -117,6 +152,9 @@ public class XMLHandler {
         }   
     }
     
+    /**
+     * load shapes 
+     */
     @SuppressWarnings("deprecation")
     public void loadShapes() {
         try {
@@ -183,6 +221,9 @@ public class XMLHandler {
         }
     }
     
+    /**
+     * @return llist of shapes
+     */
     public List<Shape> getShapes() {
         return shapes;
     }

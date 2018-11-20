@@ -4,10 +4,24 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * @author Muhammad Salah
+ * represents a json array
+ */
 public class JSONArray {
+    /**
+     * string to parse
+     */
     private String jsonString;
+    /**
+     * list of json objects
+     */
     private List<JSONObject> array;
     
+    /**
+     * @param jsonString string to parse
+     * @throws Exception not json array
+     */
     JSONArray(String jsonString) throws Exception{
         if(!jsonString.startsWith("[") && jsonString.endsWith("]")) {
             throw new Exception();
@@ -19,6 +33,9 @@ public class JSONArray {
         array = new ArrayList<JSONObject>();
     }
     
+    /**
+     * @throws Exception
+     */
     public void parse() throws Exception {
         char[] jsonchar = jsonString.toCharArray();
         for(int i = 0; i < jsonchar.length; i++) {
@@ -42,12 +59,22 @@ public class JSONArray {
             
         }
     }
+    /**
+     * @param index
+     * @return object at index
+     */
     public JSONObject get(int index) {
         return array.get(index);
     }
+    /**
+     * @return array size
+     */
     public int size() {
         return array.size();
     }
+    /**
+     * @param json object
+     */
     public void add(JSONObject j) {
         array.add(j);
     }

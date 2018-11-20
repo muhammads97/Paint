@@ -16,11 +16,11 @@ import javax.swing.ListSelectionModel;
 
 import eg.edu.alexu.csd.oop.draw.DrawingEngine;
 import eg.edu.alexu.csd.oop.draw.cs41.gui.ShapeListCellRender;
-import eg.edu.alexu.csd.oop.draw.cs41.gui.colorPicker.ColorPickerDialog;
 import eg.edu.alexu.csd.oop.draw.cs41.gui.components.CircularButton;
 import eg.edu.alexu.csd.oop.draw.cs41.gui.components.DrawingArea;
 import eg.edu.alexu.csd.oop.draw.cs41.gui.components.PropertyEntry;
 import eg.edu.alexu.csd.oop.draw.cs41.gui.components.ShapeListObject;
+import eg.edu.alexu.csd.oop.draw.cs41.gui.components.colorPicker.ColorPickerDialog;
 import eg.edu.alexu.csd.oop.draw.cs41.gui.listeners.DrawMouseLisenter;
 import eg.edu.alexu.csd.oop.draw.cs41.gui.listeners.ShapesSelectListener;
 import eg.edu.alexu.csd.oop.draw.cs41.gui.tools.FillAndColorHandler;
@@ -121,7 +121,6 @@ public class Paint {
         area.setLocation(new Point(150, 0));
         mouseListener = new DrawMouseLisenter(area);
         area.setMouseListener(mouseListener);
-        
         
         panel_1.add(deleteButton());
         

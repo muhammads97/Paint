@@ -12,9 +12,22 @@ import java.util.Map;
 import eg.edu.alexu.csd.oop.draw.Shape;
 import eg.edu.alexu.csd.oop.draw.cs41.utilities.Helper;
 
+/**
+ * @author Muhammad Salah
+ * handles json save and load operations
+ */
 public class JSONHandler {
+    /**
+     * file to save and load
+     */
     private File file;
+    /**
+     * shapes to read and write
+     */
     private List<Shape> shapes;
+    /**
+     * supported shapes to load
+     */
     private List<Class<?extends Shape>> supportedShapes;
     
     public JSONHandler(String path, List<Class<?extends Shape>> supportedShapes) {
@@ -36,6 +49,9 @@ public class JSONHandler {
         return shapes;
     }
     
+    /**
+     * save the pre set shapes to the file
+     */
     public void saveShapes() {
         JSONArray arrShapes = new JSONArray();
         for(Shape s : shapes) {
@@ -81,6 +97,9 @@ public class JSONHandler {
         Helper.writeFile(file, toSave);
     }
     
+    /**
+     * loads the shapes from the file
+     */
     public void loadShapes() {
         String jsonString = Helper.readFile(file);
         shapes = new ArrayList<Shape>();

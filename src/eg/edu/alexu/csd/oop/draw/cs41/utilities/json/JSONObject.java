@@ -4,10 +4,24 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * @author Muhammad Salah
+ * represents a json object
+ */
 public class JSONObject {
+    /**
+     * string contains the object
+     */
     private String jsonString;
-    Map<String, Object> json;
+    /**
+     * map to represent a key value pair of the json object
+     */
+    private Map<String, Object> json;
     
+    /**
+     * @param jsonString string to parse
+     * @throws Exception string not a json object
+     */
     JSONObject(String jsonString) throws Exception{
         if(!jsonString.startsWith("{") && jsonString.endsWith("}")) {
             throw new Exception();
@@ -15,9 +29,15 @@ public class JSONObject {
         this.jsonString = jsonString.substring(1, jsonString.length()-1);
         json = new HashMap<String, Object>();
     }
+    
     public JSONObject() {
         json = new HashMap<String, Object>();
     }
+    /**
+     * @throws Exception
+     * parses the json string to map<string, object>
+     * works recursivly to find objects inside an object
+     */
     public void parse() throws Exception {
         char[] jsonchar = jsonString.toCharArray();
         for(int i = 0; i < jsonchar.length; i++) {
@@ -76,24 +96,51 @@ public class JSONObject {
             
         }
     }
+    /**
+     * @param key
+     * @return object at key
+     */
     public Object get(String key) {
         return json.get(key);
     }
+    /**
+     * @param key
+     * @return boolean key exists or not
+     */
     public boolean hasKey(String key) {
         return json.containsKey(key);
     }
+    /**
+     * @return key set
+     */
     public Set<String> keySet(){
         return json.keySet();
     }
+    /**
+     * @param key
+     * @param value string
+     */
     public void put(String key, String value) {
         json.put(key, '\'' + value + '\'');
     }
+    /**
+     * @param key
+     * @param json object
+     */
     public void put(String key, JSONObject j) {
         json.put(key, j);
     }
+    /**
+     * @param key
+     * @param json array
+     */
     public void put(String key, JSONArray j) {
         json.put(key, j);
     }
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     * return string representaion of the json object
+     */
     public String toString() {
         StringBuilder string = new StringBuilder();
         string.append('{');

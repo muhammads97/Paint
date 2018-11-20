@@ -1,4 +1,4 @@
-package eg.edu.alexu.csd.oop.draw.cs41.gui.colorPicker;
+package eg.edu.alexu.csd.oop.draw.cs41.gui.components.colorPicker;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;

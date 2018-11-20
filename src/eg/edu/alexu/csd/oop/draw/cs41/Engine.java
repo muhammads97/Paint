@@ -18,6 +18,10 @@ import eg.edu.alexu.csd.oop.draw.cs41.utilities.json.JSONHandler;
 import eg.edu.alexu.csd.oop.test.DummyShape;
 import javafx.print.JobSettings;
 
+/**
+ * @author Muhammad Salah
+ * the class provides an implementation of the drawing engine
+ */
 public class Engine implements DrawingEngine {
     private List<Shape> shapes;
     private List<Class <? extends Shape>> supportedShapes;
@@ -123,6 +127,10 @@ public class Engine implements DrawingEngine {
         Helper.loadShapesFromJar(jarPath, supportedShapes);
     }
     
+    /**
+     * the function uses Helper class to find the classes implementing SHape interface
+     * then the function appends the classes to the supported shapes list
+     */
     private void fetchSupported() {
         Class<?> interfaceToFind = Shape.class;
         List<Class<?>> l = Helper.findClassesImpmenenting(interfaceToFind, interfaceToFind.getPackage());
@@ -132,6 +140,10 @@ public class Engine implements DrawingEngine {
         }
     }
     
+    /**
+     * the method uses Helper class to find the jars in the external shapes folder
+     * then it uses installPluginShape to automatically install the shape class
+     */
     private void installAvailableJars() {
         List<File> jars = Helper.getJars("./external shapes/");
         for(File f : jars) {

@@ -4,6 +4,10 @@ import java.util.List;
 
 import eg.edu.alexu.csd.oop.draw.Shape;
 
+/**
+ * @author Muhammad Salah
+ * delete shape from the canvas
+ */
 public class RemoveShapeCommand extends Command {
     private Shape shape;
     
