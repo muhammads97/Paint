@@ -42,10 +42,24 @@ public class JSONHandler {
             JSONObject shape = new JSONObject();
             shape.put("class", s.getClass().getName());
             if(s.getColor() != null) {
-                shape.put("color", String.valueOf(s.getColor().getRGB()));
+                JSONObject color = new JSONObject();
+                float[] comp = new float[4];
+                s.getColor().getComponents(comp);
+                color.put("r", String.valueOf(comp[0]));
+                color.put("g", String.valueOf(comp[1]));
+                color.put("b", String.valueOf(comp[2]));
+                color.put("a", String.valueOf(comp[3]));
+                shape.put("color", color);
             }
             if(s.getFillColor() != null) {
-                shape.put("fill", String.valueOf(s.getFillColor().getRGB()));
+                JSONObject color = new JSONObject();
+                float[] comp = new float[4];
+                s.getFillColor().getComponents(comp);
+                color.put("r", String.valueOf(comp[0]));
+                color.put("g", String.valueOf(comp[1]));
+                color.put("b", String.valueOf(comp[2]));
+                color.put("a", String.valueOf(comp[3]));
+                shape.put("fillColor", color);
             }
             if(s.getPosition() != null) {
                 shape.put("x", String.valueOf(s.getPosition().x));
@@ -88,10 +102,24 @@ public class JSONHandler {
                 }
                 if(s == null) continue;
                 if(shape.hasKey("color")) {
-                    s.setColor(Color.getColor("color", Integer.valueOf((String)shape.get("color"))));
+                    JSONObject color = (JSONObject) shape.get("color");
+                    float[] comp = new float[4];
+                    comp[0] = Float.valueOf((String)color.get("r"));
+                    comp[1] = Float.valueOf((String)color.get("g"));
+                    comp[2] = Float.valueOf((String)color.get("b"));
+                    comp[3] = Float.valueOf((String)color.get("a"));
+                    Color c = new Color(comp[0], comp[1], comp[2], comp[3]);
+                    s.setColor(c);
                 }
-                if(shape.hasKey("fill")) {
-                    s.setFillColor(Color.getColor("color", Integer.valueOf((String)shape.get("fill"))));
+                if(shape.hasKey("fillColor")) {
+                    JSONObject color = (JSONObject) shape.get("fillColor");
+                    float[] comp = new float[4];
+                    comp[0] = Float.valueOf((String)color.get("r"));
+                    comp[1] = Float.valueOf((String)color.get("g"));
+                    comp[2] = Float.valueOf((String)color.get("b"));
+                    comp[3] = Float.valueOf((String)color.get("a"));
+                    Color c = new Color(comp[0], comp[1], comp[2], comp[3]);
+                    s.setFillColor(c);
                 }
                 if(shape.hasKey("x") && shape.hasKey("y")) {
                     s.setPosition(new Point(Integer.valueOf((String)shape.get("x")), Integer.valueOf((String)shape.get("y"))));

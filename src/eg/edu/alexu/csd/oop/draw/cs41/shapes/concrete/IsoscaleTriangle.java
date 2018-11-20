@@ -1,8 +1,10 @@
-package eg.edu.alexu.csd.oop.draw.cs41.shapes;
+package eg.edu.alexu.csd.oop.draw.cs41.shapes.concrete;
 
 import java.awt.Graphics;
 
-public class IsoscaleTriangle extends DragableTriangle implements DragableShape{
+import eg.edu.alexu.csd.oop.draw.cs41.shapes.DragableTriangle;
+
+public class IsoscaleTriangle extends DragableTriangle {
     public IsoscaleTriangle() {
         super();
     }
@@ -15,10 +17,10 @@ public class IsoscaleTriangle extends DragableTriangle implements DragableShape{
     
     @Override
     public void draw(Graphics canvas) {
-        int x = Math.min(position.x, properties.get("x").intValue());
-        int y = Math.min(position.y, properties.get("y").intValue());
-        int h = Math.abs(position.y - properties.get("y").intValue());
-        int w = Math.abs(position.x - properties.get("x").intValue());
+        int x = position.x;
+        int y = position.y;
+        int h = properties.get("Length").intValue();
+        int w = properties.get("Width").intValue();
         xP[0] = x + w/2;
         yP[0] = y;
         xP[1] = x;

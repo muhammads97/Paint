@@ -1,5 +1,6 @@
 package eg.edu.alexu.csd.oop.draw.cs41.shapes;
 
+import java.awt.AlphaComposite;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -24,14 +25,18 @@ public abstract class DragableTriangle extends ShapeStructure {
         this.position = new Point(0, 0);
         this.properties = new HashMap<String, Double>();
         properties.put("stroke", 1.0);
-        properties.put("x", 0.0);
-        properties.put("y", 0.0);
+        properties.put("Transperancy", 1.0);
+        properties.put("Width", 0.0);
+        properties.put("Length", 0.0);
     }
     
     @Override
     public void draw(Graphics canvas) {
         int stroke = properties.get("stroke").intValue();
         Graphics2D g2d = (Graphics2D) canvas;
+        float alpha = properties.get("Transperancy").floatValue();
+        AlphaComposite alcom = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha);
+        g2d.setComposite(alcom);
         g2d.setColor(fill);
         g2d.setStroke(new BasicStroke(stroke));
         g2d.fillPolygon(xP, yP, 3);

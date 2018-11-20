@@ -1,4 +1,4 @@
-package eg.edu.alexu.csd.oop.draw.cs41.gui;
+package eg.edu.alexu.csd.oop.draw.cs41.gui.components;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;

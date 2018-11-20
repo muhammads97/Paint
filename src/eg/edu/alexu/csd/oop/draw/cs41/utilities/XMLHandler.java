@@ -75,15 +75,31 @@ public class XMLHandler {
                     prop.setAttribute(key, String.valueOf(shape.getProperties().get(key)));
                 }
             }
-            if(shape.getColor() != null) {
-                s.setAttribute("color", String.valueOf(shape.getColor().getRGB()));
-            }
-            if(shape.getFillColor() != null) {
-                s.setAttribute("fill", String.valueOf(shape.getFillColor().getRGB()));
-            }
+            
             if(shape.getPosition() != null) {
                 s.setAttribute("x", String.valueOf(shape.getPosition().x));
                 s.setAttribute("y", String.valueOf(shape.getPosition().y));
+            }
+            
+            if(shape.getColor() != null) {
+                Element color = doc.createElement("color");
+                float[] comp = new float[4];
+                shape.getColor().getComponents(comp);
+                color.setAttribute("r", String.valueOf(comp[0]));
+                color.setAttribute("g", String.valueOf(comp[1]));
+                color.setAttribute("b", String.valueOf(comp[2]));
+                color.setAttribute("a", String.valueOf(comp[3]));
+                s.appendChild(color);
+            }
+            if(shape.getFillColor() != null) {
+                Element color = doc.createElement("fillColor");
+                float[] comp = new float[4];
+                shape.getFillColor().getComponents(comp);
+                color.setAttribute("r", String.valueOf(comp[0]));
+                color.setAttribute("g", String.valueOf(comp[1]));
+                color.setAttribute("b", String.valueOf(comp[2]));
+                color.setAttribute("a", String.valueOf(comp[3]));
+                s.appendChild(color);
             }
             s.appendChild(prop);
             dom.appendChild(s);
@@ -138,11 +154,27 @@ public class XMLHandler {
                 p.put(key, value);
             }
             shape.setProperties(p);
-            if(s.hasAttribute("color")) {
-                shape.setColor(Color.getColor("color", Integer.valueOf(s.getAttribute("color"))));
+            Element color = (Element) s.getElementsByTagName("color").item(0);
+            if(color != null) {
+                float[] comp = new float[4];
+                comp[0] = Float.valueOf(color.getAttribute("r"));
+                comp[1] = Float.valueOf(color.getAttribute("g"));
+                comp[2] = Float.valueOf(color.getAttribute("b"));
+                comp[3] = Float.valueOf(color.getAttribute("a"));
+                
+                Color c = new Color(comp[0], comp[1], comp[2], comp[3]);
+                shape.setColor(c);
             }
-            if(s.hasAttribute("fill")) {
-                shape.setFillColor(Color.getColor("color", Integer.valueOf(s.getAttribute("fill"))));
+            Element fillColor = (Element) s.getElementsByTagName("fillColor").item(0);
+            if(fillColor != null) {
+                float[] comp = new float[4];
+                comp[0] = Float.valueOf(fillColor.getAttribute("r"));
+                comp[1] = Float.valueOf(fillColor.getAttribute("g"));
+                comp[2] = Float.valueOf(fillColor.getAttribute("b"));
+                comp[3] = Float.valueOf(fillColor.getAttribute("a"));
+                
+                Color c = new Color(comp[0], comp[1], comp[2], comp[3]);
+                shape.setFillColor(c);
             }
             if(s.hasAttribute("x") && s.hasAttribute("y")) {
                 shape.setPosition(new Point(Integer.valueOf(s.getAttribute("x")), Integer.valueOf(s.getAttribute("y"))));

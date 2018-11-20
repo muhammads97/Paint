@@ -13,6 +13,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
+import eg.edu.alexu.csd.oop.draw.cs41.gui.components.ShapeListObject;
+
 public class ShapeListCellRender implements ListCellRenderer<JLabel>{
     protected static Border noFocusBorder = new EmptyBorder(15, 1, 1, 1);
 
@@ -28,7 +30,7 @@ public class ShapeListCellRender implements ListCellRenderer<JLabel>{
             icon = new ImageIcon(url);
         }
         renderer.setIcon(icon);
-        renderer.setText(null);
+        renderer.setText(((ShapeListObject)label).getName());
         renderer.setToolTipText(((ShapeListObject)label).getName());
         return renderer;
     }

@@ -45,4 +45,11 @@ public abstract class ShapeStructure implements Shape{
     public abstract void draw(Graphics canvas); // redraw the shape on the canvas
 
     public abstract Object clone() throws CloneNotSupportedException;
+    
+    @Override
+    public boolean equals(Object shape) {
+        Shape s = (Shape) shape;
+        return ((this.color.equals(s.getColor())) && this.fill.equals(s.getFillColor()) && this.position.equals(s.getPosition()) && this.properties.equals(s.getProperties()));
+       // return super.equals(shape);
+    }
 }

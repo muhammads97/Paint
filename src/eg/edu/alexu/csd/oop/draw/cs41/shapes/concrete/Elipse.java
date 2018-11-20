@@ -1,9 +1,11 @@
-package eg.edu.alexu.csd.oop.draw.cs41.shapes;
+package eg.edu.alexu.csd.oop.draw.cs41.shapes.concrete;
 
 import java.awt.Point;
 import java.util.HashMap;
 
-public class Elipse extends Oval implements DragableShape{
+import eg.edu.alexu.csd.oop.draw.cs41.shapes.Oval;
+
+public class Elipse extends Oval {
 
     public Elipse(Elipse o) {
         super(o);

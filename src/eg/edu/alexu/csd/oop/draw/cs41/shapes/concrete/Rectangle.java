@@ -1,5 +1,6 @@
-package eg.edu.alexu.csd.oop.draw.cs41.shapes;
+package eg.edu.alexu.csd.oop.draw.cs41.shapes.concrete;
 
+import java.awt.AlphaComposite;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -7,7 +8,9 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.util.HashMap;
 
-public class Rectangle extends ShapeStructure implements DragableShape{
+import eg.edu.alexu.csd.oop.draw.cs41.shapes.ShapeStructure;
+
+public class Rectangle extends ShapeStructure {
 
     public Rectangle(Rectangle r) {
         this.color = r.color;
@@ -22,25 +25,25 @@ public class Rectangle extends ShapeStructure implements DragableShape{
         this.position = new Point(0, 0);
         this.properties = new HashMap<String, Double>();
         properties.put("stroke", 1.0);
-        properties.put("x", 0.0);
-        properties.put("y", 0.0);
+        properties.put("Transperancy", 1.0);
+        properties.put("Length", 0.0);
+        properties.put("Width", 0.0);
     }
 
     
     
     @Override
     public void draw(Graphics canvas) {
-        int x = Math.min(position.x, properties.get("x").intValue());
-        int y = Math.min(position.y, properties.get("y").intValue());
-        int h = Math.abs(position.y - properties.get("y").intValue());
-        int w = Math.abs(position.x - properties.get("x").intValue());
+        int x = position.x;
+        int y = position.y;
+        int h = properties.get("Length").intValue();
+        int w = properties.get("Width").intValue();
         int stroke = properties.get("stroke").intValue();
         
-        position = new Point(x, y);
-        properties.put("x", Double.valueOf(x + w));
-        properties.put("y", Double.valueOf(y + h));
-        
         Graphics2D g2d = (Graphics2D) canvas;
+        float alpha = properties.get("Transperancy").floatValue();
+        AlphaComposite alcom = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha);
+        g2d.setComposite(alcom);
         g2d.setColor(fill);
         g2d.setStroke(new BasicStroke(stroke));
         g2d.fillRect(x, y, w, h);
